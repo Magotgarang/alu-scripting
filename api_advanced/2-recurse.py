@@ -8,7 +8,7 @@ def recurse(subreddit, hot_list=[], after=None):
     url = "https://www.reddit.com/r/{}/hot.json" \
         .format(subreddit)
     header = {'User-Agent': 'Mozilla/5.0'}
-    param = {'after': after}
+    param = {'after': 'after'}
     response = requests.get(url, headers=header, params=param)
 
     if response.status_code != 200:
@@ -22,4 +22,5 @@ def recurse(subreddit, hot_list=[], after=None):
         [hot_list.append(article.get('data').get('title'))
          for article in hot_articles]
 
-        return recurse(subreddit, hot_list, after=after) \            if has_next else hot_list
+        return recurse(subreddit, hot_list, after=after) \
+            if has_next else hot_list
